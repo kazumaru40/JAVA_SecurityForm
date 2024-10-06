@@ -1,12 +1,16 @@
 package com.example.its.domain.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +25,7 @@ import java.util.Collections;
                             user -> new CustomUserDetails(
                                     user.getUsername(),
                                     user.getPassword(),
-                                    Collections.emptyList()
+                                    toGrantedAuthorityList(user.getAuthority())
 
                             )
                     )
@@ -30,5 +34,9 @@ import java.util.Collections;
                                     "Given username is not found. (username = '" + username + "')"
                             )
                     );
+    }
+
+    private List<GrantedAuthority> toGrantedAuthorityList(User.Authority authority) {
+            return Collections.singletonList(new SimpleGrantedAuthority(authority.name()));
     }
 }
