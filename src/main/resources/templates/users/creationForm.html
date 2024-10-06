@@ -23,8 +23,8 @@
     <div class="mt-3">
         <button type="submit" class="btn btn-primary">作成</button>
         <a href="./list.html" th:href="@{/users}" class="btn btn-secondary">キャンセル</a>
-        <!--href=  タイムリーフのサーバーが動いていてないとき様に書いてある
-         th:href=  サーバーが動いてたら、href属性の中身を{}に置き換える-->
+        <!--href=  thymeleafサーバーが起動していないときは href属性の./list.htmlが評価される
+         th:href=  サーバー起動時は、"@{}"の中をhref属性の./list.htmlに置き換えられる-->
     </div>
 </form>
 </body>

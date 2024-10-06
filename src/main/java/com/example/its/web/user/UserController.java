@@ -43,6 +43,8 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return  showCreationForm(form);   //バリテーションが失敗ならcreationFormに戻す
         }
+
+        userService.create(form.getUsername(), form.getPassword());
         return "redirect:/users";
     }
 }
