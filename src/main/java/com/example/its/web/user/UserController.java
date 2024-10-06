@@ -5,10 +5,12 @@ import com.example.its.domain.auth.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Collections;
 
 @Controller
 //@RequestMapping("/users") すべてのリクエストがhttp://localhost:8080/usersに続くように設定
@@ -31,7 +33,16 @@ public class UserController {
 
     //   GETリクエスト→　　http://localhost:8080/users/creationForm
     @GetMapping("/creationForm")
-    public  String showCreationForm() {
+    public String showCreationForm(@ModelAttribute UserForm form) {
         return "users/creationForm";
+    }
+
+    //　　POSTリクエスト→　http://localhost:8080/users
+    @PostMapping
+    public String create(@Validated UserForm form, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return  showCreationForm(form);   //バリテーションが失敗ならcreationFormに戻す
+        }
+        return "redirect:/users";
     }
 }
