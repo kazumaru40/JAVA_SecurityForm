@@ -44,7 +44,7 @@ public class UserController {
             return  showCreationForm(form);   //バリテーションが失敗ならcreationFormに戻す
         }
 
-        userService.create(form.getUsername(), form.getPassword());
+        userService.create(form.getUsername(), form.getPassword(), form.getAuthority());
         return "redirect:/users";
     }
 }
