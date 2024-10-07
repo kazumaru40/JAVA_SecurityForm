@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                //.mvcMatchers("/login").permitAll()       // ログインページは誰でもアクセス可能にする
+                .mvcMatchers("/login").permitAll()       // ログインページは誰でもアクセス可能にする
                 .mvcMatchers("/users/**").hasAuthority("ADMIN")   //  /users/～以降のURLはADMIN権限が必要
                 .anyRequest().authenticated()
                 .and()
